@@ -22,8 +22,11 @@ def main():
     types.Content(role="user", parts=[types.Part(text=user_prompt)]),
 ]
     response = client.models.generate_content(model='gemini-2.0-flash-001', contents=messages)
-    print(response.text)
-    print(f"Prompt tokens: {response.usage_metadata.prompt_token_count} \n Response tokens: {response.usage_metadata.candidates_token_count}")
+    if (len(sys.argv) > 2) and (sys.argv[2] == '--verbose'):
+        print(f"User prompt: {user_prompt} \n {response.text}")
+        print(f"Prompt tokens: {response.usage_metadata.prompt_token_count} \n Response tokens: {response.usage_metadata.candidates_token_count}")
+    else:
+        print(response.text)
 
 
 if __name__ == "__main__":
