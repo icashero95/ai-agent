@@ -1,5 +1,5 @@
 import os
-import config
+from functions import config
 
 def get_file_content(working_directory, file_path):
     working_real = os.path.realpath(working_directory)
