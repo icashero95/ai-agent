@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import sys
 import functions.config
-from functions.get_files_info import schema_get_files_info
+from functions.call_function import available_functions
 
 load_dotenv()
 api_key = os.environ.get("GEMINI_API_KEY")
@@ -13,11 +13,6 @@ client = genai.Client(api_key=api_key)
 
 from google.genai import types
 
-available_functions = types.Tool(
-    function_declarations=[
-        schema_get_files_info,
-    ]
-)
 
 def main():
     print("Hello from ai-agent!")

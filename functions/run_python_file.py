@@ -1,5 +1,6 @@
 import os
 import subprocess
+from google.genai import types
 
 def run_python_file(working_directory, file_path, args=[]):
     working_real = os.path.realpath(working_directory)
@@ -27,3 +28,18 @@ def run_python_file(working_directory, file_path, args=[]):
             return f"STDOUT: {completed_process.stdout}\nSTDERR: {completed_process.stderr}"
     except Exception as e:
         return f"Error: executing Python file: {e}"
+    
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Checks if the supplied file is an executable python file, then runs the code while constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The relative file path of where the executable pythin file is, relative to the working directory.",
+            ),
+        },
+        required=["file_path"]
+    ),
+)
